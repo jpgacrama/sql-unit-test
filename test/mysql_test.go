@@ -37,7 +37,7 @@ func NewMock() (*sql.DB, sqlmock.Sqlmock) {
 
 func TestFindByID(t *testing.T) {
 	db, mock := NewMock()
-	repo := &mysql.Repository{db}
+	repo := &mysql.Repository{DB: db}
 	defer func() {
 		repo.Close()
 	}()
@@ -56,7 +56,7 @@ func TestFindByID(t *testing.T) {
 
 func TestFindByIDError(t *testing.T) {
 	db, mock := NewMock()
-	repo := &mysql.Repository{db}
+	repo := &mysql.Repository{DB: db}
 	defer func() {
 		repo.Close()
 	}()
@@ -74,7 +74,7 @@ func TestFindByIDError(t *testing.T) {
 
 func TestFind(t *testing.T) {
 	db, mock := NewMock()
-	repo := &mysql.Repository{db}
+	repo := &mysql.Repository{DB: db}
 	defer func() {
 		repo.Close()
 	}()
@@ -94,7 +94,7 @@ func TestFind(t *testing.T) {
 
 func TestCreate(t *testing.T) {
 	db, mock := NewMock()
-	repo := &mysql.Repository{db}
+	repo := &mysql.Repository{DB: db}
 	defer func() {
 		repo.Close()
 	}()
@@ -110,7 +110,7 @@ func TestCreate(t *testing.T) {
 
 func TestCreateError(t *testing.T) {
 	db, mock := NewMock()
-	repo := &mysql.Repository{db}
+	repo := &mysql.Repository{DB: db}
 	defer func() {
 		repo.Close()
 	}()
@@ -126,7 +126,7 @@ func TestCreateError(t *testing.T) {
 
 func TestUpdate(t *testing.T) {
 	db, mock := NewMock()
-	repo := &mysql.Repository{db}
+	repo := &mysql.Repository{DB: db}
 	defer func() {
 		repo.Close()
 	}()
@@ -142,7 +142,7 @@ func TestUpdate(t *testing.T) {
 
 func TestUpdateErr(t *testing.T) {
 	db, mock := NewMock()
-	repo := &mysql.Repository{db}
+	repo := &mysql.Repository{DB: db}
 	defer func() {
 		repo.Close()
 	}()
@@ -158,7 +158,7 @@ func TestUpdateErr(t *testing.T) {
 
 func TestDelete(t *testing.T) {
 	db, mock := NewMock()
-	repo := &mysql.Repository{db}
+	repo := &mysql.Repository{DB: db}
 	defer func() {
 		repo.Close()
 	}()
@@ -174,7 +174,7 @@ func TestDelete(t *testing.T) {
 
 func TestDeleteError(t *testing.T) {
 	db, mock := NewMock()
-	repo := &mysql.Repository{db}
+	repo := &mysql.Repository{DB: db}
 	defer func() {
 		repo.Close()
 	}()

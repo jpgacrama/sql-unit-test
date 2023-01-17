@@ -35,7 +35,7 @@ func NewRepository(dialect, dsn string, idleConn, maxConn int) (repo.Repository,
 
 // Close attaches the provider and close the connection
 func (r *Repository) Close() {
-	r.db.Close()
+	r.DB.Close()
 }
 
 // FindByID attaches the user repository and find data based on id
@@ -45,7 +45,7 @@ func (r *Repository) FindByID(id string) (*repo.UserModel, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	err := r.db.QueryRowContext(ctx, "SELECT id, name, email, phone FROM users WHERE id = ?", id).Scan(&user.ID, &user.Name, &user.Email, &user.Phone)
+	err := r.DB.QueryRowContext(ctx, "SELECT id, name, email, phone FROM users WHERE id = ?", id).Scan(&user.ID, &user.Name, &user.Email, &user.Phone)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func (r *Repository) Find() ([]*repo.UserModel, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	rows, err := r.db.QueryContext(ctx, "SELECT id, name, email, phone FROM users")
+	rows, err := r.DB.QueryContext(ctx, "SELECT id, name, email, phone FROM users")
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func (r *Repository) Create(user *repo.UserModel) error {
 	defer cancel()
 
 	query := "INSERT INTO users (id, name, email, phone) VALUES (?, ?, ?, ?)"
-	stmt, err := r.db.PrepareContext(ctx, query)
+	stmt, err := r.DB.PrepareContext(ctx, query)
 	if err != nil {
 		return err
 	}
@@ -105,7 +105,7 @@ func (r *Repository) Update(user *repo.UserModel) error {
 	defer cancel()
 
 	query := "UPDATE users SET name = ?, email = ?, phone = ? WHERE id = ?"
-	stmt, err := r.db.PrepareContext(ctx, query)
+	stmt, err := r.DB.PrepareContext(ctx, query)
 	if err != nil {
 		return err
 	}
@@ -121,7 +121,7 @@ func (r *Repository) Delete(id string) error {
 	defer cancel()
 
 	query := "DELETE FROM users WHERE id = ?"
-	stmt, err := r.db.PrepareContext(ctx, query)
+	stmt, err := r.DB.PrepareContext(ctx, query)
 	if err != nil {
 		return err
 	}
