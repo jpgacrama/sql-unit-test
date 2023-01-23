@@ -181,6 +181,7 @@ func TestDeleteError(t *testing.T) {
 
 	query := "DELETE FROM user WHERE id = \\?"
 
+	mock.ExpectBegin()
 	prep := mock.ExpectPrepare(query)
 	prep.ExpectExec().WithArgs(u.ID).WillReturnResult(sqlmock.NewResult(0, 0))
 
